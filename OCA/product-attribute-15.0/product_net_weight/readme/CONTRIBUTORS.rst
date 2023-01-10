@@ -1,4 +1,0 @@
-* Sylvain LE GAL (https://www.twitter.com/legalsylvain)
-* `Greenice <https://www.greenice.com>`_:
-
-  * Fernando La Chica <fernandolachica@gmail.com>
