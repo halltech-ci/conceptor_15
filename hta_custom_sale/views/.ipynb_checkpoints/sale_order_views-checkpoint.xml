@@ -76,18 +76,25 @@
             <field name="product_cost"/>
             <field name="line_margin"/>
           </xpath>
+            
+            
           <!-- Adding custom field sale_margin in sale order-->
-          <xpath expr="//field[@name='amount_tax']" position="after">
+            
+            <!-- CE CHAMP N'EXISTE PAS DANS ODOO 15 -->
+            
+<!--           <xpath expr="//field[@name='amount_tax']" position="after">
               <field name="sale_margin" />
               <field name='total_cost'/>
               <field name='total_margin_amount'/>
               <field name="total_margin_percent"/>
-          </xpath>
+          </xpath> -->
+            
+            
             <xpath expr="//sheet/notebook/page[@name='order_lines']/group[@name='note_group']/group[1]/field[@name='note']" position="replace">
             </xpath>
           <xpath expr="//sheet/notebook/page[@name='order_lines']/group[@name='note_group']/group[@name='sale_total']" position="after">
               <div class="oe_subtotal_footer_separator oe_inline o_td_label" style="font-size:15px;">
-                  <group attrs="{'invisible': [('amount_total', '&lt;=', 0)]}">
+                  <group>
                       <span><field name="amount_to_word" nolabel="1"/>
                           FRANCS CFA</span>
                   </group>

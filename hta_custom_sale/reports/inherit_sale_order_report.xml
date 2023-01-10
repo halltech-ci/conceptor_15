@@ -85,15 +85,19 @@
         <xpath expr="//table[hasclass('table','table-sm','o_main_table')]/thead/tr/th[@name='th_taxes']" position="replace">
         </xpath>
         <xpath expr="//tbody[hasclass('sale_tbody')]/t/tr/t[@t-if='not line.display_type']/td[@name='td_taxes']" position="replace"></xpath>
+        
+        
+        
         <!-- Delete tax from report-->
-        <xpath expr="//div[@name='so_total_summary']/div/div/table[hasclass('table', 'table-sm')]/t[@t-foreach='doc.amount_by_group']/tr/t[@t-if='amount_by_group[5] == 1 and doc.amount_untaxed == amount_by_group[2]']/td[@name='td_amount_by_group_label_3']" position="replace">
+<!--         <xpath expr="//div[@name='so_total_summary']/div/div/table[hasclass('table', 'table-sm')]/t" position="replace">
             <td name="td_amount_by_group_label_3">
                 <span t-esc="amount_by_group[0]"/>
                 <span></span>
             </td>
-        </xpath>
+        </xpath> -->
+        
         <!-- Adding amount_total_no_tax-->
-        <xpath expr="//div[@name='so_total_summary']/div/div/table/tr[hasclass('border-black',  'o_subtotal')]" position='before'>
+        <xpath expr="//div[@name='so_total_summary']/div/div/table[hasclass('table', 'table-sm')]/t" position="before">
             <tr class="border-black o_subtotal" style="">
                 <td name="td_td_amount_total_no_tax_label"><strong>Total HT</strong></td>
                 <td name="td_amount_total_no_tax" class="text-right">
@@ -109,6 +113,9 @@
                 </tr>
             </t>
         </xpath>
+        
+        
+        
         <xpath expr="//p[@t-field='doc.note']" position="before">
             <div style="font-size:16px; padding-bottom:30px;">
                 <tr class="border-black">
