@@ -1,0 +1,42 @@
+<odoo>
+  <data>
+    <record id="purchase_request_sale_form_inherit" model="ir.ui.view">
+        <field name="name">purchase.request.form</field>
+        <field name="model">purchase.request</field>
+        <field name="inherit_id" ref="purchase_request.view_purchase_request_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/h1/field[@name='name']" position="attributes">
+                <attribute name="attrs">{'readonly': True}</attribute>
+            </xpath>
+            <xpath expr="//sheet//group/group/field[@name='assigned_to']" position="after">
+                <field name='sale_order' string="Devis" domain="[('state', 'in', ('done', 'False'))]" options="{'no_create': True}"/>
+            </xpath>
+            <xpath expr="//sheet//group/group[2]/field[@name='group_id']" position="after">
+                <field name="project_code"/>
+            </xpath>
+            <!--<xpath expr="//sheet/notebook/page/field[@name='line_ids']/form/sheet/group[@name='main']/group/field[@name='product_id']" position="before">
+                <field name="product_code" readonly="True" string="Code"/>
+            </xpath>-->
+            <xpath expr="//notebook/page/field[@name='line_ids']/tree/field[@name='product_id']" position="before">
+                <field name="product_code" readonly="True" string="Code"/>
+            </xpath>
+        </field>
+      </record>
+      
+      <record id="purchase_request_line_search_inherit" model="ir.ui.view">
+          <field name="name">purchase_request_line_inherit</field>
+          <field name="model">purchase.request.line</field>
+          <field name="inherit_id" ref="purchase_request.purchase_request_line_search"/>
+          <field name="arch" type="xml">
+              <xpath expr="//search/field[@name='request_id']" position="after">
+                  <field name="project"/>
+              </xpath>
+              <xpath expr="//search/group/filter[@name='request']" position="replace"></xpath>
+              <xpath expr="//search/group/filter[@name='product']" position="after">
+                  <filter name="project_id" string="Projet" domain="[]" context="{'group_by': 'project_id'}"/>
+                  <filter name="request_id" string="DA" domain="[]" context="{'group_by': 'request_id'}"/>
+              </xpath>
+          </field>
+      </record>
+  </data>
+</odoo>

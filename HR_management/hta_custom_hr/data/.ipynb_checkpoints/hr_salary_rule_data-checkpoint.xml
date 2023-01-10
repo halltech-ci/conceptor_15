@@ -1,0 +1,48 @@
+<odoo>
+    
+    <!--heritage salaire de base-->
+    <function model="hr.salary.rule" name="write">
+        <value model="hr.salary.rule" search="[
+            ('struct_id', '=', ref('hr_payroll.structure_002')),
+            ('code', '=', 'BASIC')]"/>
+        <value eval="{
+            'code': 'BASE',
+            'sequence': 1,
+                     }"
+        />
+    </function>
+    <record id="hr_payroll.BASIC" model="hr.salary.rule">
+        <field name="code">BASE</field>
+        <field name="category_id" ref="hr_payroll.BASIC"/>
+        <field name="appears_on_payslip" eval="True"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name='struct_id' ref="hr_payroll.structure_002"/>
+        <field name="amount_python_compute">
+BASE = contract.wage
+unpaid = payslip.struct_id.unpaid_work_entry_type_ids
+PAID = 0
+UNPAID = 0
+if payslip.worked_days_line_ids:
+    for line in payslip.worked_days_line_ids:
+        if line.work_entry_type_id not in unpaid:
+            PAID += line.number_of_hours
+        else:
+            UNPAID += line.number_of_hours
+    result = BASE * PAID/(PAID + UNPAID)
+        </field>
+    </record>            
+    <!--heritage salaire brut-->
+    <function model="hr.salary.rule" name="write">
+        <value model="hr.salary.rule" search="[
+            ('struct_id', '=', ref('hr_payroll.structure_002')),
+            ('code', '=', 'GROSS')]"/>
+        <value eval="{
+            'name': 'Salaire Brut',
+            'code': 'SBRUT',
+            'sequence': 1000,
+            'category_id': ref('hr_payroll.GROSS'),
+            'amount_python_compute': 'result = categories.BASIC + categories.INDM - categories.DED',
+            }"/>
+    </function>
+</odoo>

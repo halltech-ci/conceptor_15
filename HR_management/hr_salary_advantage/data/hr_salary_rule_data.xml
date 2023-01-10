@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="salary_rule_sursalaire" model="hr.salary.rule">
+        <field name="name">Sursalaire</field>
+        <field name="code">SS</field>
+        <field name="sequence">1</field>
+        <field name="category_id" ref="hr_payroll.NET"/>
+        <field name="appears_on_payslip" eval="True"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name='struct_id' ref="hr_payroll.structure_002"/>
+        <field name="amount_python_compute">
+result = contract.get_advantages_fields('SS')
+        </field>
+    </record>
+    
+    <record id="salary_rule_salissure" model="hr.salary.rule">
+        <field name="name">Prime de Salissure</field>
+        <field name="code">SAL</field>
+        <field name="sequence">1</field>
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="appears_on_payslip" eval="True"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name='struct_id' ref="hr_payroll.structure_002"/>
+        <field name="amount_python_compute">
+result = contract.get_advantages_fields('SAL')
+        </field>
+    </record>
+    
+    <record id="salary_rule_indm_transport" model="hr.salary.rule">
+        <field name="name">Indemnité de transport</field>
+        <field name="code">IDTR</field>
+        <field name="sequence">1</field>
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="appears_on_payslip" eval="True"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name='struct_id' ref="hr_payroll.structure_002"/>
+        <field name="amount_python_compute">
+result = contract.get_advantages_fields('IDTR')
+        </field>
+    </record>
+    
+    <record id="salary_rule_prime_transport" model="hr.salary.rule">
+        <field name="name">Prime de transport</field>
+        <field name="code">TRANS</field>
+        <field name="sequence">1</field>
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="appears_on_payslip" eval="True"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name='struct_id' ref="hr_payroll.structure_002"/>
+        <field name="amount_python_compute">
+result = contract.get_advantages_fields('TRANS')
+        </field>
+    </record>
+    
+    <record id="salary_rule_prime_responsabilite" model="hr.salary.rule">
+        <field name="name">Prime de responsabilit</field>
+        <field name="code">RESP</field>
+        <field name="sequence">1</field>
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="appears_on_payslip" eval="True"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name='struct_id' ref="hr_payroll.structure_002"/>
+        <field name="amount_python_compute">
+result = contract.get_advantages_fields('RESP')
+        </field>
+    </record>
+</odoo>

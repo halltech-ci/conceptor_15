@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="TOTAL" model="hr.salary.rule.category">
+        <field name="name">Cout total pour l'entreprise</field>
+        <field name="code">TOTAL</field>
+        <field name="parent_id" eval="False"/>
+    </record>
+    <!-- Toutes les indemnites et primes-->
+    <record id="hr_payroll.ALW" model="hr.salary.rule.category">
+        <field name="name">Indemnite</field>
+        <field name="code">INDM</field>
+        <field name="parent_id" eval="False"/>
+    </record>
+    <!-- Toutes les deductions sur le salaires-->
+    <record id="hr_payroll.DED" model="hr.salary.rule.category">
+        <field name="name">Deduction</field>
+        <field name="code">DED</field>
+        <field name="parent_id" eval="False"/>
+    </record>
+    <!-- Toutes les retenues sur le salaires-->
+    <record id="RETENUES" model="hr.salary.rule.category">
+        <field name="name">Total Retenues</field>
+        <field name="code">RETENUES</field>
+        <field name="parent_id" eval="False"/>
+    </record>
+    <!-- Salaire de base-->
+    <record id="hr_payroll.BASIC" model="hr.salary.rule.category">
+        <field name="name">Salaire de base</field>
+        <field name="code">BASIC</field>
+        <field name="parent_id" eval="False"/>
+    </record>
+    <!-- Salaire brut-->
+    <record id="hr_payroll.GROSS" model="hr.salary.rule.category">
+        <field name="name">Salaire Brut</field>
+        <field name="code">BRUT</field>
+    </record>
+</odoo>

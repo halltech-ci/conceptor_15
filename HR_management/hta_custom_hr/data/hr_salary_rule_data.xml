@@ -1,0 +1,344 @@
+<odoo>
+    
+    <!--heritage salaire de base--> 
+    <function model="hr.salary.rule" name="write">
+        <value model="hr.salary.rule" search="[
+            ('struct_id', '=', ref('hr_payroll.structure_002')),
+            ('code', '=', 'BASIC')]"/>
+        <value eval="{
+            'code': 'SBASE',
+            'sequence': 1,
+            'name': 'Salaire de base',
+            'id': 'hta_custom_hr.SBASE',
+                     }"
+        />
+    </function>
+    <record id="hta_custom_hr.SBASE" model="hr.salary.rule">
+        <field name="name">Salaire de base</field>
+        <field name="code">SBASE</field>
+        <field name="sequence">1</field>
+        <field name="category_id" ref="hr_payroll.BASIC"/>
+        <field name="appears_on_payslip" eval="True"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name='struct_id' ref="hr_payroll.structure_002"/>
+        <field name="amount_python_compute">
+BASE = contract.wage
+unpaid = payslip.struct_id.unpaid_work_entry_type_ids
+PAID = 0
+UNPAID = 0
+if payslip.worked_days_line_ids:
+    for line in payslip.worked_days_line_ids:
+        if line.work_entry_type_id not in unpaid:
+            PAID += line.number_of_hours
+        else:
+            UNPAID += line.number_of_hours
+    result = BASE * PAID/(PAID + UNPAID)
+        </field>
+    </record>         
+    <!--heritage salaire brut-->
+    <function model="hr.salary.rule" name="write">
+        <value model="hr.salary.rule" search="[
+            ('struct_id', '=', ref('hr_payroll.structure_002')),
+            ('code', '=', 'GROSS')]"/>
+        <value eval="{
+            'name': 'Salaire Brut',
+            'code': 'BRUT',
+            'sequence': 1,
+            'id': 'hta_custom_hr.BRUT',
+            }"/>
+    </function>
+    <record id="hta_custom_hr.BRUT" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.GROSS"/> 
+        <field name="name">Salaire brut</field>
+        <field name="code">BRUT</field>
+        <field name="sequence">1</field>
+        <field name="appears_on_paybook">True</field>
+        <field name="rubrique">4</field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = categories.BASIC + categories.INDM
+        </field>
+    </record>
+    <record id="hr_salary_rule_prime_anciennete" model="hr.salary.rule">
+        <field name="category_id" ref="hta_custom_hr.autres_cumuls"/> 
+        <field name="name">Prime anciennete</field>
+        <field name="code">ANC</field>
+        <field name="sequence">1</field>
+        <field name="appears_on_paybook">True</field>
+        <field name="rubrique">4</field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+val = employee.seniority
+result = 0
+if val &gt;= 2 and val &lt;25 :
+    result = contract.wage*val*0.01
+if val &gt;= 25:
+    result = contract.wage*0.25
+        </field>
+    </record>
+    <!-- Calcul due la Base imposable-->
+    <record id="hta_custom_hr.base_imposable" model="hr.salary.rule">
+        <field name="category_id" ref="hta_custom_hr.B_IMPO"/> 
+        <field name="name">Base Imposable</field>
+        <field name="code">SBI</field>
+        <field name="sequence">5</field>
+        <field name="appears_on_paybook">True</field>
+        <field name="rubrique">5</field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = BRUT + ANC
+        </field>
+    </record>
+    <!-- Regle de calcul impot sur salaire -->
+    <record id="hta_custom_hr.IS" model="hr.salary.rule">
+        <field name="category_id" ref="RETENUES"/>
+        <field name="name">Impot sur salaire (I.S)</field>
+        <field name="code">IS</field>
+        <field name="sequence">6</field>
+        <field name="appears_on_paybook">True</field>
+        <field name="rubrique">6</field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = SBI*0.012
+        </field>
+    </record>
+    <!-- Regle de calcul contribution national -->
+    <record id="hta_custom_hr.BASE_CN" model="hr.salary.rule">
+        <field name="category_id" ref="hta_custom_hr.autres_cumuls"/> 
+        <field name="name">Base CN</field>
+        <field name="code">RN</field>
+        <field name="sequence">6</field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = (SBI*0.8)
+        </field>
+    </record>
+    <!-- Regle de calcul contribution national -->
+    <record id="hta_custom_hr.CN" model="hr.salary.rule">
+        <field name="category_id" ref="RETENUES"/>
+        <field name="name">Contribution Nationale</field>
+        <field name="code">CN</field>
+        <field name="sequence">7</field>
+        <field name="appears_on_paybook">True</field>
+        <field name="rubrique">7</field>
+        <field name="condition_select">none</field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+val = RN
+if val &lt; 50042 :
+    result = 0
+elif val &gt;= 50042 and val &lt;= 130000:
+   result = val*0.015 - 750
+elif val &gt; 130000 and val &lt;= 200000:
+    result = val*0.05 - 5300
+else:
+    result = val*0.1 - 15300
+        </field>
+    </record>
+    <!-- Regle de calcul variable rgi -->
+    <record id="hta_custom_hr.RGI" model="hr.salary.rule">
+        <field name="category_id" ref="hta_custom_hr.autres_cumuls"/> 
+        <field name="name">Variable de calcul RGI</field>
+        <field name="code">RGI</field>
+        <field name="sequence">8</field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = (SBI*0.68 - (IS+CN)*0.85)
+        </field>
+    </record>
+    <!-- Regle de calcul variable Q -->
+    <record id="hta_custom_hr.IGR" model="hr.salary.rule">
+        <field name="category_id" ref="RETENUES"/> 
+        <field name="name">Impot Général sur le Revenu</field>
+        <field name="code">IGR</field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+        <field name="sequence">9</field>
+        <field name="appears_on_paybook">True</field>
+        <field name="rubrique">8</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+PART = employee.nbre_part
+Q = RGI/PART
+if Q &lt; 25000:
+    result = 0
+elif Q &gt;= 25000 and Q &lt; 45583:
+    result = (RGI*1/11) - (2273*PART)
+elif (Q &gt;= 45667 and Q &lt; 81583):
+    result = (RGI*15/115) - (4076*PART)
+elif (Q &gt;= 81667 and Q &lt;= 126583):
+    result= (RGI*1/6) - (7031*PART)  
+elif (Q &gt;= 126667 and Q &lt; 220333):
+    result= (RGI*0.2) - (11250*PART)  
+elif (Q &gt;= 220414 and Q &lt; 389083):
+    result=(RGI*35/135) - (24306*PART)
+elif (Q &gt;= 389167 and Q &lt; 842167):
+    result= (RGI*45/145) - (44181*PART)
+else:
+    result=(RGI*3/8) - (98633*PART)
+        </field>
+    </record>
+    <!-- Regle de calcul regime de retraite employeur -->
+    <record id="hta_custom_hr.RRP" model="hr.salary.rule">
+        <field name="category_id" ref="hta_custom_hr.RETENUES_SOCIAL_EMPLOYEUR"/> 
+        <field name="name">Regime de Retraite Patronal</field>
+        <field name="code">RRP</field>
+        <field name="sequence">8</field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+val = SBI
+if val &lt;= 2700000:
+    result = val*7.7/100
+else:
+    result = 2700000*7.7/100
+        </field>
+    </record>    
+    <!-- Total Indemnite -->
+    <record id="hta_custom_hr.T_INDM" model="hr.salary.rule">
+        <field name="category_id" ref="hta_custom_hr.autres_cumuls"/> 
+        <field name="name">Total Indemnité</field>
+        <field name="code">T_IDMN</field>
+        <field name="sequence">8</field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = categories.INDM
+        </field>
+    </record>
+    <!-- Base social BASE_SO du regime de retraite-->
+    <record id="hta_custom_hr.BASE_RE" model="hr.salary.rule">
+        <field name="category_id" ref="hta_custom_hr.autres_cumuls"/> 
+        <field name="name">Base regime de retraite</field>
+        <field name="code">BASE_RE</field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+        <field name="appears_on_payslip">False</field>
+        <field name="sequence">6</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+val = SBI
+if val &lt;= 2700000:
+    result = val
+else:
+    result = 2700000
+        </field>
+    </record>
+    <!-- Regle de calcul taxe formation continue -->
+    <record id="hta_custom_hr.FORMATION_CONTINUE" model="hr.salary.rule">
+        <field name="category_id" ref="RETENUES"/> 
+        <field name="name">Formation Continue</field>
+        <field name="code">FC</field>
+        <field name="sequence">8</field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = BRUT*0.6/100
+        </field>
+    </record>
+    
+<!-- Regle de calcul taxe formation continue -->
+    <record id="hta_custom_hr.TAXE_APPRENTISSAGE" model="hr.salary.rule">
+        <field name="category_id" ref="RETENUES"/> 
+        <field name="name">Taxe Apprentissage</field>
+        <field name="code">TAPP</field>
+        <field name="sequence">8</field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = BRUT*0.4/100
+        </field>
+    </record>
+    <!-- Base social BASE_SO du regime de retraite-->
+    <record id="hta_custom_hr.BASE_SO" model="hr.salary.rule">
+        <field name="category_id" ref="hta_custom_hr.autres_cumuls"/> 
+        <field name="name">Base sociale</field>
+        <field name="code">BASE_SO</field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+        <field name="appears_on_payslip">False</field>
+        <field name="sequence">6</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+if BRUT &gt; 70000:
+    result = 70000
+else:
+    result = SBRUT
+        </field>
+    </record>
+    <!-- Regle de calcul prestations familiales -->
+    <record id="hta_custom_hr.PRESTATION_FAMILIALE" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.DED"/> 
+        <field name="name">Prestations Familiales</field>
+        <field name="code">PF</field>
+        <field name="sequence">8</field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = BASE_SO*5.75/100
+        </field>
+    </record>
+    <!-- Regle de calcul accident de travail -->
+    <record id="hta_custom_hr.AT" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.DED"/> 
+        <field name="name">Accident de Travail</field>
+        <field name="code">AT</field>
+        <field name="sequence">8</field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = BASE_SO*4/100
+        </field>
+    </record>
+    <!-- Regle de calcul taux horaire-->
+    <record id="hta_custom_hr.TH" model="hr.salary.rule">
+        <field name="category_id" ref="hta_custom_hr.cumul_temps"/> 
+        <field name="name">Taux Horaire</field>
+        <field name="code">TH</field>
+        <field name="sequence">2</field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = SBASE/173.33
+        </field>
+    </record>
+    <!-- Regle de calcul heure sup-->
+    <record id="hta_custom_hr.WORK" model="hr.salary.rule">
+        <field name="category_id" ref="hta_custom_hr.cumul_temps"/> 
+        <field name="name">Heures travaillées</field>
+        <field name="code">WORK</field>
+        <field name="sequence">1</field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+        <field name="appears_on_payslip">True</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = 0
+if payslip.worked_days_line_ids:
+    for line in payslip.worked_days_line_ids:
+        if line.work_entry_type_id not in unpaid : 
+            result += line.number_of_hours
+        </field>
+    </record>
+</odoo>
