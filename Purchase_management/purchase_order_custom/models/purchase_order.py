@@ -51,16 +51,16 @@ class PurchaseOrder(models.Model):
         if self.state == 'approve':
             self.purchase_approver = self.user_id
     
-    @api.model
+    """@api.model
     def create(self, vals):
         if vals.get('name', 'New') == 'New':
             company_id = vals.get("company_id", self.env.company.id)
             seq_date = None
             if 'date_order' in vals:
                 seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-            vals['name'] = self.env['ir.sequence'].with_context(with_company=company_id).next_by_code('purchase.dc.sequence', sequence_date=seq_date) or '/'
-            
+            vals['name'] = self.env['ir.sequence'].with_context(with_company=company_id).next_by_code('purchase.dc.sequence', sequence_date=seq_date) or '/'            
         return super(PurchaseOrder, self).create(vals)
+    """
     
     def create_order(self):
         for order in self:
@@ -86,11 +86,12 @@ class PurchaseOrder(models.Model):
             #order.write({'name':self.env['ir.sequence'].next_by_code('purchase.bc.sequence')})
         return True
     
-    def unlink(self):
+    
+    '''def unlink(self):
         if self.state not in ('draft'):
             raise ValidationError(_("Vous ne pouvez pas supprimer une demande de cotation ou un bon de commande"))
         super(PurchaseOrder, self).unlink()
-    
+    '''
     
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
