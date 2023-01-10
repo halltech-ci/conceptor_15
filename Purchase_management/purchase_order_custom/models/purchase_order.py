@@ -98,7 +98,7 @@ class PurchaseOrderLine(models.Model):
     
     specifications = fields.Text(string="Specifications", compute="_compute_specifications", store=True)
     project = fields.Many2one('project.project', compute="_compute_specifications", store=True)
-    product_code = fields.Char(related="product_id.default_code", sting="Code Article")
+    product_code = fields.Char(related="product_id.default_code", string="Code Article")
     purchase_type = fields.Selection(selection=[('project', 'Matières/Consommables'), ('travaux', 'Travaux'), ('transport', 'Transport'), ('subcontract', 'Sous Traitance'), ('stock', 'Appro'),], 
             compute="_compute_purchase_type", store=True,
     )
