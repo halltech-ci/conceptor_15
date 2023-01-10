@@ -1,0 +1,25 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="hr_salary_advantage_form">
+          <field name="name">hr_salary_advantage_form</field>
+          <field name="model">hr.contract</field>
+          <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+          <field name="arch" type="xml">
+              <xpath expr="//notebook/page[@name='information']" position="after">
+                  <page name="advantage" string="Contract fields">
+                      <group>
+                          <field name="advantage_ids" nolabel="1">
+                              <tree editable="bottom">
+                                  <field name="contract_id" invisible='1'/>
+                                  <field name="name"/>
+                                  <field name="amount"/>
+                                  <field name="paid"/>
+                              </tree>
+                          </field>
+                      </group>
+                  </page>
+              </xpath>
+          </field>
+      </record>
+  </data>
+</odoo>

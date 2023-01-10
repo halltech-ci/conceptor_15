@@ -1,0 +1,71 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="hr_salary_advantage_form">
+        <field name="name">hr_salary_advantage_form</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+          <field name="arch" type="xml">
+              <xpath expr="//notebook/page[@name='information']" position="after">
+                  <page name="advantage" string="Contract fields">
+                      <group>
+                          <field name="advantage_ids" nolabel="1">
+                              <tree editable="bottom">
+                                  <!--<field name="contract_id" invisible='1'/>
+                                  <field name="name"/>-->
+                                  <field name="advantage_line"/>
+                                  <field name="code"/>
+                                  <field name="amount" widget="monetary" sum='Total Advantage'/>
+                                  <field name="currency_id" invisible="1"/>
+                                  <field name="is_paid"/>
+                              </tree>
+                          </field>
+                      </group>
+                  </page>
+              </xpath>
+          </field>
+      </record>
+      
+      <record id="hr_salary_advantage_line_view_tree" model="ir.ui.view">
+        <field name="name">hr_salary_advantage_tree</field>
+        <field name="model">hr.salary.advantage.line</field>
+        <field name="arch" type="xml">
+            <tree string="Contract Advantage Line">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+      </record>
+      
+      <record id="hr_salary_advantage_line_view_form" model="ir.ui.view">
+        <field name="name">hr_salary_advantage_form</field>
+        <field name="model">hr.salary.advantage.line</field>
+        <field name="arch" type="xml">
+            <form string="Contract Advantage Line">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+      </record>
+      
+      <record id="hr_salary_advantage_action" model="ir.actions.act_window">
+        <field name="name">Salary Advance Line</field>
+        <field name="res_model">hr.salary.advantage.line</field>
+        <field name="view_mode">tree,form</field>
+      </record>      
+      
+      <menuitem
+        id="hr_menu_salary_advantage_line"
+        name="Advantage Line"
+        action="hr_salary_advantage_action"
+        parent="hr_payroll.menu_hr_payroll_employees_root"
+        sequence="36"/>
+  </data>
+</odoo>

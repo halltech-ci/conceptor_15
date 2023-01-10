@@ -1,0 +1,14 @@
+<odoo>
+  <data>
+    <record model="ir.actions.act_window" id="stock_request_action_window">
+      <field name="name">Stock Request</field>
+      <field name="res_model">stock.request</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    
+    <menuitem id="project_stock_request.menu_root" name="Stock Request" sequence="100"/>
+    <!-- web_icon="project_stock_request,static/description/icon.png"-->
+    
+    <menuitem name="Stock Request" id="project_stock_request.request" parent="project_stock_request.menu_root" action="stock_request_action_window"/>
+  </data>
+</odoo>

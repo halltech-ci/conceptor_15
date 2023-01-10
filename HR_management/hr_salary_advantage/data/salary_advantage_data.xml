@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="advantage_line_salissure" model="hr.salary.advantage.line">
+        <field name="name">Prime de salissure</field>
+        <field name="code">SAL</field>
+    </record>
+    
+    <record id="advantage_line_sursalaire" model="hr.salary.advantage.line">
+        <field name="name">Sursalaire</field>
+        <field name="code">SS</field>
+    </record>
+    
+    <record id="advantage_line_indem_transport" model="hr.salary.advantage.line">
+        <field name="name">Indemnite de transport</field>
+        <field name="code">IDTR</field>
+    </record>
+    
+    <record id="advantage_line_prime_transport" model="hr.salary.advantage.line">
+        <field name="name">Prime de transport</field>
+        <field name="code">PTR</field>
+    </record>
+    
+    <record id="advantage_line_gratification" model="hr.salary.advantage.line">
+        <field name="name">Gratification</field>
+        <field name="code">GRAT</field>
+    </record>
+    <record id="advantage_line_responsabilite" model="hr.salary.advantage.line">
+        <field name="name">Prime de Responsabilite</field>
+        <field name="code">RESP</field>
+    </record>
+    <record id="advantage_line_rendement" model="hr.salary.advantage.line">
+        <field name="name">Prime de Rendement</field>
+        <field name="code">REND</field>
+    </record>
+    <record id="advantage_line_logement" model="hr.salary.advantage.line">
+        <field name="name">Prime de Logement</field>
+        <field name="code">LOGE</field>
+    </record>
+    <!-- Salary advantages-->
+    <record id="advantage_indem_transport" model="hr.salary.advantage">
+        <field name="name">Indemnite de transport</field>
+        <field name="amount">30000</field>
+        <field name="advantage_line" ref="advantage_line_salissure"/>
+    </record>
+    
+    <record id="advantage_sursalaire" model="hr.salary.advantage">
+        <field name="name">Sursalaire</field>
+        <field name="amount">80000</field>
+        <field name="advantage_line" ref="advantage_line_sursalaire"/>
+    </record>
+    
+</odoo>

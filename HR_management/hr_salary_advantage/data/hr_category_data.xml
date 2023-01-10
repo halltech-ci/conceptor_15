@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_payroll_brut_salary" model="hr.salary.rule.category">
+        <field name="name">Salaire Brut</field>
+        <field name="code">BRUT</field>
+    </record>
+    <function model="hr.salary.rule" name="write">
+        <value model="hr.salary.rule" search="[
+            ('struct_id', '=', ref('hr_payroll.structure_002')),
+            ('code', '=', 'GROSS')]"
+        />
+        <value eval="{
+            'name': 'Salaire Brut',
+            'code': 'BRUT',
+            'sequence': 1000,
+            'category_id': ref('hta_custom_hr.hr_payroll_brut_salary'),
+            'amount_python_compute': 'categories.BASIC + categories.ALW',
+            }"
+        />
+    </function>
+</odoo>

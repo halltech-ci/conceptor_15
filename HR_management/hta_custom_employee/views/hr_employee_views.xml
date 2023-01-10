@@ -1,0 +1,22 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="hr_employee_form_inherits">
+      <field name="model">hr.employee</field>
+      <field name="inherit_id" ref="hr.view_employee_form"/>
+      <field name="arch" type="xml">
+          <xpath expr="//sheet//notebook/page[@name='hr_settings']/group" position="inside">
+              <group string="Embauche">
+                    <group>
+                        <field name="hiring_date" string="Date d'embauche" readonly="True"/>
+                        <field name="seniority" string="Ancienneté"/>
+                        <field name="hiring_end" string="Date de fin de contrat"/>
+                    </group>
+              </group>
+          </xpath>
+          <xpath expr="//sheet//notebook/page[@name='personal_information']/group/group[3]" position="inside">
+                <field name="nbre_part"/>
+          </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>
