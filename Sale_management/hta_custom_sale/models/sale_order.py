@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
+from num2words import num2words
+from odoo.addons import decimal_precision as dp
+from odoo.exceptions import UserError, ValidationError
 
 
 class SaleOrder(models.Model):
@@ -11,7 +14,14 @@ class SaleOrder(models.Model):
     description = fields.Text("Description : ")
     signed_user = fields.Many2one("res.users", string="Signed In User", readonly=True, default= lambda self: self.env.uid)
     sale_order_recipient = fields.Char("Destinataire")
+    amount_to_word = fields.Char(string="Montant en lettre:", compute='_compute_amount_to_word')
     #amount_total_no_tax = fields.Monetary(string='Total HT', store=True, readonly=True, compute='_amount_total_no_tax', tracking=True)
     partner_id = fields.Many2one('res.partner', string='Customer',  required=True, change_default=True, index=True, tracking=1,
         domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",)
+    
+    
+    def _compute_amount_to_word(self):
+        for rec in self:
+            rec.amount_to_word = str(self._num_to_words(rec.amount_total)).upper()
+    
     
