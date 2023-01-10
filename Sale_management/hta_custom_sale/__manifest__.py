@@ -20,7 +20,7 @@
     'version': '15.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['sale_custom_margin'],
+    'depends': ['sale'],
 
     # always loaded
     'data': [
