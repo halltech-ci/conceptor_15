@@ -27,7 +27,7 @@
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
-        'report/purchase_order_custom_report.xml',
+        #'report/purchase_order_custom_report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
