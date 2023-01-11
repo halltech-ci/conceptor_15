@@ -20,7 +20,7 @@
     'version': '15.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['sale'],
+    'depends': ['hta_sale_approval'],
 
     # always loaded
     'data': [
