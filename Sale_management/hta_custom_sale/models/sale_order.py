@@ -9,6 +9,21 @@ from odoo.exceptions import UserError, ValidationError
 class SaleOrder(models.Model):
     _inherit = "sale.order"
     
+    def _num_to_words(self, num):
+        def _num2words(number, lang):
+            try:
+                return num2words(number, lang=lang).title()
+            except NotImplementedError:
+                return num2words(number, lang='en').title()
+        if num2words is None:
+            logging.getLogger(__name__).warning("The library 'num2words' is missing, cannot render textual amounts.")
+            return ""
+        lang_code = self.env.context.get('lang') or self.env.user.lang
+        lang = self.env['res.lang'].with_context(active_test=False).search([('code', '=', lang_code)])
+        num_to_word = _num2words(num, lang=lang.iso_code)
+        return num_to_word
+    
+    
     date_order = fields.Datetime(readonly=False)
     is_proforma = fields.Boolean('Proformat', default=False)
     description = fields.Text("Description : ")
