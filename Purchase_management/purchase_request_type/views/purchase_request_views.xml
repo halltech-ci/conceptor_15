@@ -25,7 +25,7 @@
             </field>
             <xpath expr="//sheet/group/group[3]" position="after">
                 <group>
-                    <field name="date_required" string="Date de réception" attrs="{'readonly': [('is_editable','=', False)],}"/>
+                    <!--<field name="date_required" string="Date de réception" attrs="{'readonly': [('is_editable','=', False)],}"/>-->
                 </group>
             </xpath>
         </field>
