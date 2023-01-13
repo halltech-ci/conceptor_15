@@ -7,6 +7,7 @@ class ProjectProject(models.Model):
     _inherit = 'project.project'
     
     code = fields.Char(string="Project Code", required=True, default="/", readonly=True)
+    project_key = fields.Char(string="Project_Key")
     project_description = fields.Char(string='Project Description')
 
     _sql_constraints = [
@@ -34,6 +35,12 @@ class ProjectProject(models.Model):
 
         for project in result:
             rec = self.browse(project[0])
-            name = "{}-{}".format(rec.code, project[1])
+            key = project.project_key
+            if key:
+                name = "{}-{}({})".format(rec.code, project[1], key)
+            else:
+                name = "{}-{}".format(rec.code, project[1])
             new_result.append((rec.id, name))
         return new_result
+    
+    
