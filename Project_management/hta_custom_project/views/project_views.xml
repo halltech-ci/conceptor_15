@@ -29,7 +29,7 @@
         <field name="arch" type="xml">
             <field name="name" position="before">
                 <field name="code" required="0" readonly="1" />
-                <field name="project_code" string="Ancien code"/>
+                <field name="project_key" string="Ancien code"/>
             </field>
         </field>
     </record>
