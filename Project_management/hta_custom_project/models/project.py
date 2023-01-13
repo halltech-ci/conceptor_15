@@ -35,7 +35,7 @@ class ProjectProject(models.Model):
 
         for project in result:
             rec = self.browse(project[0])
-            key = project.project_key
+            key = rec.project_key
             if key:
                 name = "{}-{}({})".format(rec.code, project[1], key)
             else:
