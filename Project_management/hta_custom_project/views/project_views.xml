@@ -9,6 +9,7 @@
           <xpath expr="//sheet/div/h1/field[@name='name']" position='before'>
               <div>
                   <field name="code" placeholder="Code Projet"/>
+                  <field name="project_key" string="Code"/>
               </div>
           </xpath>
           
@@ -28,6 +29,7 @@
         <field name="arch" type="xml">
             <field name="name" position="before">
                 <field name="code" required="0" readonly="1" />
+                <field name="project_key" string="Ancien code"/>
             </field>
         </field>
     </record>
