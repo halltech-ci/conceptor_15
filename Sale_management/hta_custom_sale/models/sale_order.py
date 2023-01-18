@@ -23,7 +23,7 @@ class SaleOrder(models.Model):
         num_to_word = _num2words(num, lang=lang.iso_code)
         return num_to_word
     
-    
+    name = fields.Char(readonly=False)
     date_order = fields.Datetime(readonly=False)
     is_proforma = fields.Boolean('Proformat', default=False)
     description = fields.Text("Description : ")
