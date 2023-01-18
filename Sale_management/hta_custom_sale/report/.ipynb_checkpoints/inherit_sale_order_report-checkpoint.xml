@@ -88,11 +88,11 @@
         
         <!-- Replacing price_subtotal by custom field line_subtotal-->
         <xpath expr="//table[hasclass('table','table-sm','o_main_table')]/thead/tr/th[@name='th_priceunit']" position='after'>
-            <th name="th_line_subtotal" class="text-right">Prix Total</th>
+<!--             <th name="th_line_subtotal" class="text-right">Prix Total</th> -->
         </xpath>
         <xpath expr="//tbody[hasclass('sale_tbody')]/t/tr/t[@t-if='not line.display_type']/td[@name='td_priceunit']" position="after">
             <td name="td_line_subtotal" class="text-right o_price_total">
-                <span t-field="line.line_subtotal"/>
+<!--                 <span t-field="line.line_subtotal"/> -->
             </td>
         </xpath>
         <!-- Delete tax from report-->
