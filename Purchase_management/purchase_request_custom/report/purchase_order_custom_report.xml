@@ -4,18 +4,20 @@
         
         <xpath expr="//t[@t-set='address']" position="replace"></xpath>
        <!-- Add custom sequence in purchase-->
-        <xpath expr="//div[hasclass('page')]/h2[1]" position="replace">
-            <h4 t-if="o.state == 'draft'">DEMANDE DE COTATION N°:<span t-field="o.name"/></h4>
-        </xpath>
-        <xpath expr="//div[hasclass('page')]/h2[1]" position="replace">
-            <h4 class="text-center" t-if="o.state in ['sent', 'to approve']" style="color: #cb2020;">DEMANDE DE COTATION N°: <span t-field="o.name"/></h4>
-        </xpath>
-        <xpath expr="//div[hasclass('page')]/h2[1]" position="replace">
+<!--         <xpath expr="//div[hasclass('page')]/h2[1]" position="replace">
+            <h4 t-if="o.state == 'draft'">DEMANDE DE COTATION N°:<span t-field="o.name"/>AHUA</h4>
+        </xpath> -->
+        <xpath expr="//div[hasclass('page')]/h2[2]" position="replace">
+            <h4 class="text-center" t-if="o.state in ['draft','sent', 'to approve']" style="color: #cb2020;">DEMANDE DE COTATION N°: <span t-field="o.name"/></h4>
             <h4 class="text-center" t-if="o.state in ['purchase', 'done']" style="color: #cb2020;">BON DE COMMANDE N°: <span t-field="o.name"/></h4>
-        </xpath>
-        <xpath expr="//div[hasclass('page')]/h2[1]" position="replace" style="color: #cb2020;">
             <h4 class="text-center" t-if="o.state == 'cancel'">(ANNULE) BON DE COMMANDE N°: <span t-field="o.name"/></h4>
         </xpath>
+        <xpath expr="//div[hasclass('page')]/h2[1]" position="replace">
+            
+        </xpath>
+<!--         <xpath expr="//div[hasclass('page')]/h2[3]" position="replace">
+            
+        </xpath> -->
         <!-- Replacing information-->
         <xpath expr="//div[hasclass('page')]/div[@id='informations']" position="replace">
             <table class="table table-sm">
