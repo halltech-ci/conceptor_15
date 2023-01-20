@@ -3,8 +3,8 @@
     <data noupdate="1">
         <record id="purchase_order_custom_sequence" model="ir.sequence">
             <field name="name">Purchase Request</field>
-            <field name="code">purchase.dc.sequence</field>
-            <field name="prefix">DC%(y)s-</field>
+            <field name="code">purchase.bc.sequence</field>
+            <field name="prefix">BC%(y)s-</field>
             <field name="active">TRUE</field>
             <field eval="1" name="number_next"/>
             <field eval="1" name="number_increment"/>

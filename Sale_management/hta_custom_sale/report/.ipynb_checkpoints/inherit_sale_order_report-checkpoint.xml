@@ -41,11 +41,7 @@
             <p style="font-size: 16px; text-transform: uppercase; font-weight: bold; text-align: left;" t-field="doc.description"/>
             <br/>
         </xpath>
-        <xpath expr="//table[hasclass('table', 'table-sm', 'o_main_table')]" position="before">
-            <br/>
-            <p style="font-size: 16px; text-transform: uppercase; font-weight: bold; text-align: left;" t-field="doc.description"/>
-            <br/>
-        </xpath>
+        
         <xpath expr="//div[hasclass('page')]/div[hasclass('d-flex')]" position="after">
              <table class="table table-bordeless table-sm">
                 <thead>
@@ -88,11 +84,11 @@
         
         <!-- Replacing price_subtotal by custom field line_subtotal-->
         <xpath expr="//table[hasclass('table','table-sm','o_main_table')]/thead/tr/th[@name='th_priceunit']" position='after'>
-            <th name="th_line_subtotal" class="text-right">Prix Total</th>
+<!--             <th name="th_line_subtotal" class="text-right">Prix Total</th> -->
         </xpath>
         <xpath expr="//tbody[hasclass('sale_tbody')]/t/tr/t[@t-if='not line.display_type']/td[@name='td_priceunit']" position="after">
             <td name="td_line_subtotal" class="text-right o_price_total">
-                <span t-field="line.line_subtotal"/>
+<!--                 <span t-field="line.line_subtotal"/> -->
             </td>
         </xpath>
         <!-- Delete tax from report-->
@@ -115,17 +111,17 @@
             <tr class="border-black o_subtotal" style="">
                 <td name="td_td_amount_total_no_tax_label"><strong>Total HT</strong></td>
                 <td name="td_amount_total_no_tax" class="text-right">
-                    <span t-field="doc.amount_total_no_tax"/>
+                    <span t-field="doc.amount_untaxed"/>
                 </td>
             </tr>
-            <t t-if="doc.remise_total > 0">
+<!--             <t t-if="doc.remise_total > 0">
                 <tr class="o_subtotal" style="">
                     <td name="td_general_discount_label">Remise(<span t-field='doc.general_discount'/>%)</td>
                     <td name="td_remise_total" class="text-right">
                         <span t-field="doc.remise_total"/>
                     </td>
                 </tr>
-            </t>
+            </t> -->
         </xpath>
         
         

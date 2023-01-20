@@ -53,3 +53,8 @@ class SaleOrder(models.Model):
         template_obj.send(template_id)
         template_id.send()
         return True 
+    
+    def action_cancel(self):
+        res = super(SaleOrder, self).action_cancel()
+        self.write({'state': 'cancel'})
+        return res
