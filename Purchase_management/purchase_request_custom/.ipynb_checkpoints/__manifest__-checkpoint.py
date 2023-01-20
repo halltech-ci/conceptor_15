@@ -20,13 +20,17 @@
     'version': '15.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['purchase'],
+    'depends': ['purchase_request'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
+        'views/purchase_request_views.xml',
+        'report/purchase_order_custom_report.xml',
+        'report/purchase_request_custom_report.xml',
+        'report/purchase_request_report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
