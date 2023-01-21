@@ -4,7 +4,7 @@
     <record id="purchase_request_analytic_form_inherit" model="ir.ui.view">
         <field name="name">purchase.request.custom_form</field>
         <field name="model">purchase.request</field>
-        <field name="inherit_id" ref="purchase_request_sale.purchase_request_sale_form_inherit"/>
+        <field name="inherit_id" ref="purchase_request_type.purchase_request_type_form_inherit"/>
         <field name="arch" type="xml">
             <xpath expr="//sheet//group/group/field[@name='sale_order']" position="after">
                 <field name="account_analytic_id1" attrs="{'readonly': [('is_editable','=', False)],}"  options="{'no_create':True}"/>

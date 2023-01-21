@@ -43,11 +43,11 @@ class PurchaseRequestLine(models.Model):
         #for line
         if self.product_id:
             if self.product_id.uom_id.category_id != self.product_uom_id.category_id:
-                raise ValidationError("Les unite de mesure de %s ne sont pas dans la meme categorie" % (self.product_id.name))
+                raise ValidationError("Les unites de mesure de %s ne sont pas dans la meme categorie" % (self.product_id.name))
     
     
     @api.onchange('product_uom_id')
     def _onchange_product_uom(self):
         if self.product_id:
             if self.product_id.uom_id.category_id != self.product_uom_id.category_id:
-                raise ValidationError("Les unite de mesure de %s ne sont pas dans la meme categorie" % (self.product_id.name))
+                raise ValidationError("Les unites de mesure de %s ne sont pas dans la meme categorie" % (self.product_id.name))
