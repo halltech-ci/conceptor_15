@@ -6,6 +6,7 @@ from datetime import date, datetime, timedelta
 
 class PurchaseRequest(models.Model):
     _inherit= 'purchase.request'
+     _inherit = ["mail.thread", "mail.activity.mixin"]
     
     
     @api.model
@@ -14,13 +15,13 @@ class PurchaseRequest(models.Model):
         return req_date
     
     
-    purchase_type = fields.Selection(selection=[('project', 'Matières/Consommables'), ('travaux', 'Travaux'), ('transport', 'Transport'), ('subcontract', 'Sous Traitance'), ('stock', 'Appro'),('service', 'Prestation de service')], string="Type Achat")
+    purchase_type = fields.Selection(selection_add=[('project', 'Matières/Consommables'), ('travaux', 'Travaux'), ('transport', 'Transport'), ('subcontract', 'Sous Traitance'), ('stock', 'Appro'),('service', 'Prestation de service')], string="Type Achat")
     is_project_approver = fields.Boolean(compute='_compute_is_project_approver')
     is_expense = fields.Boolean('is_expense', default=False)
     picking_type_id = fields.Many2one(required=False)
     is_for_project = fields.Boolean(string="Imputer au projet", default=True)
     requested_by = fields.Many2one('res.users', string="Demandeur DA", readonly=True)
-    date_required = fields.Date(string="Request Date", default=lambda self:self._default_date_required())
+    date_required = fields.Date(string="Request Date", default=lambda self:self._default_date_required(), tracing=True)
     date_approve = fields.Date(string="Date Approve", tracking=True)
     
     

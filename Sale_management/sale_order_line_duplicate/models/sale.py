@@ -8,4 +8,5 @@ class SaleOrderLine(models.Model):
     
     def duplicate_line(self):
         max_seq = max(line.sequence for line in self.order_id.order_line)
-        self.copy({'order_id': self.order_id.id, 'sequence': max_seq + 1})
+        seq = self.sequence
+        self.copy({'order_id': self.order_id.id, 'sequence': seq + 1})
