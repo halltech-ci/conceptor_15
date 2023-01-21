@@ -20,7 +20,7 @@
     'version': '15.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['sale_management'],
+    'depends': ['sale_management', 'hta_custom_sale'],
 
     # always loaded
     'data': [
@@ -28,6 +28,7 @@
         'views/views.xml',
         'views/templates.xml',
         'views/sale_order_views.xml',
+        'report/inherit_sale_order_report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
