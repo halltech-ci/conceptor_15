@@ -18,7 +18,7 @@ class PurchaseRequest(models.Model):
     purchase_type = fields.Selection(selection=[('project', 'Matières/Consommables'), ('travaux', 'Travaux'), ('transport', 'Transport'), ('subcontract', 'Sous Traitance'), ('stock', 'Appro'),('service', 'Prestation de service')], string="Type Achat")
     is_project_approver = fields.Boolean(compute='_compute_is_project_approver')
     is_expense = fields.Boolean('is_expense', default=False)
-    picking_type_id = fields.Many2one(required=False)
+    picking_type_id = fields.Many2one('stock.picking.type', required=False)
     is_for_project = fields.Boolean(string="Imputer au projet", default=True)
     requested_by = fields.Many2one('res.users', string="Demandeur DA", readonly=True)
     date_required = fields.Date(string="Request Date", default=lambda self:self._default_date_required(), tracing=True)
