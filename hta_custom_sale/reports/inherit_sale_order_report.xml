@@ -41,6 +41,11 @@
             <p style="font-size: 16px; text-transform: uppercase; font-weight: bold; text-align: left;" t-field="doc.description"/>
             <br/>
         </xpath>
+        <xpath expr="//table[hasclass('table', 'table-sm', 'o_main_table')]" position="before">
+            <br/>
+            <p style="font-size: 16px; text-transform: uppercase; font-weight: bold; text-align: left;" t-field="doc.description"/>
+            <br/>
+        </xpath>
         <xpath expr="//div[hasclass('page')]/div[hasclass('d-flex')]" position="after">
              <table class="table table-bordeless table-sm">
                 <thead>
@@ -51,8 +56,6 @@
                 </thead>       
             </table>
         </xpath>
-        <!--Ajout de champ destinataire dans devis-->
-        
         <!-- Delete expiration on header-->
         
         <!-- hide sale person field-->
@@ -137,7 +140,6 @@
                 </tr>
             </div>
         </xpath>
-        <!-- Delete display subtotal-->
         
         <xpath expr="//div/table[hasclass('table', 'table-sm')]/tbody[hasclass('sale_tbody')]/t[@t-foreach='doc.order_line']/t/tr[hasclass('is-subtotal', 'text-right')]" position="replace">
             <t t-if="current_subtotal != 0">
@@ -164,11 +166,11 @@
             <attribute name="class">table table-sm o_main_table table-bordered</attribute>
         </xpath>
         <xpath expr="//div[hasclass('page')]/table[hasclass('table', 'table-sm', 'o_main_table', 'table-bordered')]" position="attributes">
-            <attribute name="style">font:15px lucida-console,sans-serif</attribute>
+            <attribute name="style">font:14px lucida-console,sans-serif</attribute>
         </xpath>
         
         <xpath expr="//div[hasclass('page')]" position="attributes">
-            <attribute name="style">font:14px lucida-console,sans-serif</attribute>
+            <attribute name="style">font:13px lucida-console,sans-serif</attribute>
         </xpath>
     </template>
 </odoo>
