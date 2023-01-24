@@ -20,7 +20,7 @@
     'version': '15.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['purchase_request', 'purchase_request_sale',],
+    'depends': ['purchase_request', 'purchase_request_sale', 'purchase_request_type'],
 
     # always loaded
     'data': [

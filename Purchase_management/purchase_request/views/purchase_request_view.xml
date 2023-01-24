@@ -155,10 +155,7 @@
                     <notebook>
                         <page string="Products">
                             <field name="line_ids">
-                                <tree
-                                    decoration-muted="cancelled == True"
-                                    editable="bottom"
-                                >
+                                <tree decoration-muted="cancelled == True">
                                     <field name="product_id" />
                                     <field name="name" />
                                     <field name="product_qty" />
