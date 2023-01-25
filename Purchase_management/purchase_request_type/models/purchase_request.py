@@ -6,7 +6,6 @@ from datetime import date, datetime, timedelta
 
 class PurchaseRequest(models.Model):
     _inherit= 'purchase.request'
-    _inherit = ["mail.thread", "mail.activity.mixin"]
     
     
     @api.model
