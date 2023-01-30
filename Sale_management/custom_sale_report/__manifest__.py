@@ -28,7 +28,8 @@
         'views/views.xml',
         'views/templates.xml',
         'views/sale_order_views.xml',
-        'report/inherit_sale_order_report.xml',
+        #'report/inherit_sale_order_report.xml',
+        'report/sale_report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
