@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "custom_sale_report",
+    'name': "custom_sale_report_1",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
