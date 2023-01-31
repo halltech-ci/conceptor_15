@@ -24,7 +24,7 @@ class SaleOrder(models.Model):
         return num_to_word
     
     name = fields.Char(readonly=True,)
-    amount_untaxed = fields.Monetary(string='Total TTC')
+    amount_tax = fields.Monetary(string='Total TTC')
     date_order = fields.Datetime(readonly=False)
     is_proforma = fields.Boolean('Proformat', default=False)
     description = fields.Text("Description : ")
