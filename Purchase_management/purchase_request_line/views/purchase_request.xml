@@ -13,7 +13,7 @@
                                 <field name="is_editable" invisible="1" />
                                 <field name="product_code" readonly='1'/>
                                 <field name="product_id" attrs="{'readonly': [('is_editable','=', False)]}" options="{'no_create':True, 'no_create_edit':True}"/>
-                                <field name="name" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                                <field name="name" invisible='1'/>
                                 <label for="product_qty" attrs="{'readonly': [('is_editable','=', False)]}"/>
                                 <div>
                                     <field name="product_qty" class="oe_inline" attrs="{'readonly': [('is_editable','=', False)]}"/>

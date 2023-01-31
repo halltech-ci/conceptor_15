@@ -14,7 +14,7 @@ class PurchaseRequest(models.Model):
         return req_date
     
     
-    purchase_type = fields.Selection(selection=[('project', 'Matières/Consommables'), ('travaux', 'Travaux'), ('transport', 'Transport'), ('subcontract', 'Sous Traitance'), ('stock', 'Appro'),('service', 'Prestation de service')], string="Type Achat")
+    purchase_type = fields.Selection(selection_add=[('project', 'Matières/Consommables'), ('travaux', 'Travaux'), ('transport', 'Transport'), ('subcontract', 'Sous Traitance'), ('stock', 'Appro'),('service', 'Prestation de service')], string="Type Achat")
     is_project_approver = fields.Boolean(compute='_compute_is_project_approver')
     is_expense = fields.Boolean('is_expense', default=False)
     picking_type_id = fields.Many2one(required=False)
@@ -51,7 +51,7 @@ class PurchaseRequestLine(models.Model):
     _inherit = 'purchase.request.line'
     
     
-    purchase_type = fields.Selection(selection= [('project', 'Matières/Consommables'), ('travaux', 'Travaux'), ('transport', 'Transport'), ('subcontract', 'Sous Traitance'), ('stock', 'Appro'),('service', 'Prestation de service')], related='request_id.purchase_type', store=True)
+    purchase_type = fields.Selection(related='request_id.purchase_type', store=True)
     
     
     
