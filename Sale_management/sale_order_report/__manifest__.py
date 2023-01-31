@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "custom_sale_report_1",
+    'name': "sale_order_report",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -16,20 +16,18 @@
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
-    'category': 'Sale Management',
-    'version': '15.0.1',
+    'category': 'Uncategorized',
+    'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['sale_management', 'hta_custom_sale'],
+    'depends': ['hta_custom_sale', 'custom_sale_report'],
 
     # always loaded
     'data': [
-        'security/ir.model.access.csv',
+        # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
-        'views/sale_order_views.xml',
-        #'report/inherit_sale_order_report.xml',
-        #'report/sale_report.xml',
+        'report/report_sale_order.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
