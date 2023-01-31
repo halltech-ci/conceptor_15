@@ -36,7 +36,7 @@
                     decoration-danger="purchase_state == 'cancelled'"
                 />
                 <field name="product_id" />
-                <field name="name" />
+                <field name="name" readonly='1'/>
                 <field name="product_qty" />
                 <field name="product_uom_category_id" invisible="1" />
                 <field name="product_uom_id" groups="uom.group_uom" />
@@ -77,23 +77,23 @@
                     <group name="main">
                         <group name="info">
                             <field
-                                name="origin"
+                                name="origin" invisible='1'
                                 attrs="{'readonly': [('is_editable','=', False)]}"
                             />
                             <field
-                                name="requested_by"
+                                name="requested_by" invisible='1'
                                 attrs="{'readonly': [('is_editable','=', False)]}"
                             />
                             <field
-                                name="assigned_to"
+                                name="assigned_to" invisible='1'
                                 attrs="{'readonly': [('is_editable','=', False)]}"
                             />
                             <field
-                                name="description"
+                                name="description" invisible='1' 
                                 attrs="{'readonly': [('is_editable','=', False)]}"
                             />
                             <field
-                                name="date_start"
+                                name="date_start" invisible='1'
                                 attrs="{'readonly': [('is_editable','=', False)]}"
                             />
                             <field
