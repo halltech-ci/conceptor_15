@@ -20,7 +20,7 @@
     'version': '15.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['sale', 'custom_sale_report'],
+    'depends': ['sale', 'sale_order_report'],
 
     # always loaded
     'data': [
