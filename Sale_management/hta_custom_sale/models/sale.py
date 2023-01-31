@@ -23,7 +23,7 @@ class SaleOrder(models.Model):
         num_to_word = _num2words(num, lang=lang.iso_code)
         return num_to_word
     
-    #name = fields.Char(readonly=True, default='_('New')')
+    name = fields.Char(readonly=True,)
     amount_untaxed = fields.Monetary(string='Total TTC')
     date_order = fields.Datetime(readonly=False)
     is_proforma = fields.Boolean('Proformat', default=False)
