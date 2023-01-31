@@ -80,7 +80,7 @@
         
         <xpath expr="//tbody[hasclass('sale_tbody')]/t/tr/t[@t-if='not line.display_type']/td[@name='td_unit']" position="replace">
             <td name='td_unit' class="text-right">
-                <span t-field="line.sale_uom" />
+                <span t-esc="line.sale_uom.code" />
             </td>
         </xpath>
         
