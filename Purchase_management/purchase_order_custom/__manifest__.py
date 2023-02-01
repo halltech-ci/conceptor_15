@@ -29,6 +29,7 @@
         'views/templates.xml',
         'views/purchase_order_views.xml',
         'data/purchase_order_sequence.xml',
+        'views/purchase_line_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
