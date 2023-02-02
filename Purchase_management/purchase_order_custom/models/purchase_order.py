@@ -102,7 +102,8 @@ class PurchaseOrderLine(models.Model):
     purchase_type = fields.Selection(selection=[('project', 'Matières/Consommables'), ('travaux', 'Travaux'), ('transport', 'Transport'), ('subcontract', 'Sous Traitance'), ('stock', 'Appro'),('service', 'Prestation de service')], 
             compute="_compute_purchase_type", store=True,
     )
-    
+    project_code = fields.Char(related="project.code", string="Projet", compute="_compute_specifications",store=True)
+    sale_order = fields.Many2one('sale.order', string="Devis", compute="_compute_specifications", store=True)
     
     @api.depends('purchase_request_lines')
     def _compute_specifications(self):
@@ -114,6 +115,8 @@ class PurchaseOrderLine(models.Model):
                 pr_obj = self.env['purchase.request.line'].browse(pr_line[0])
             line.project = pr_obj.project
             line.specifications = pr_obj.specifications
+            line.project_code = pr_obj.project_code
+            line.sale_order = pr_obj.sale_order
             
     @api.depends('purchase_request_lines')
     def _compute_purchase_type(self):

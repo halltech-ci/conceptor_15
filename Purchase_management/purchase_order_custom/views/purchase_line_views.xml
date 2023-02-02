@@ -9,10 +9,12 @@
               <xpath expr="//tree/field[@name='product_id']" position="replace">
               </xpath>
               <xpath expr="//tree/field[@name='order_id']" position="after">
-                  <field name="product_id" optional="show"/>
                   <field name="product_code" optional="show"/>
-                  <field name="project"/>
+                  <field name="project_code" optional="show"/>
                   <field name="purchase_type" optional="hide"/>
+                  <field name="purchase_request_allocation_ids" widget="many2many" string="Ligne DA"/>
+                  <field name="date_order" string="Date de commande" optional="show"/>
+                  <field name="sale_order" string="Devis"/>
               </xpath>
           </field>
       </record>

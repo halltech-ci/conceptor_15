@@ -17,6 +17,8 @@ class PurchaseRequestLine(models.Model):
     project = fields.Many2one('project.project', string="Project", readonly=True, related="request_id.project")
     product_code = fields.Char(related="product_id.default_code", string="Code Article", store=True)
     project_id = fields.Many2one('project.project', string='Projet',compute="_compute_project_id", store=True,)
+    sale_order = fields.Many2one('sale.order', string="Devis", related="request_id.sale_order", store=True)
+    project_code = fields.Char(readonly=True, related="request_id.project_code", string="Code Projet")
     
     @api.depends('project')
     def _compute_project_id(self):
