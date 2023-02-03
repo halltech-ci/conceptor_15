@@ -12,7 +12,7 @@
                   <field name="product_code" optional="show"/>
                   <field name="project_code" optional="show"/>
                   <field name="purchase_type" optional="hide"/>
-                  <field name="purchase_request_allocation_ids" widget="many2many" string="Ligne DA"/>
+                  <field name="purchase_request_lines" widget="many2many" string="Ligne DA"/>
                   <field name="date_order" string="Date de commande" optional="show"/>
                   <field name="sale_order" string="Devis"/>
               </xpath>
