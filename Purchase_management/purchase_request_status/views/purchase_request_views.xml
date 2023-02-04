@@ -5,6 +5,9 @@
         <field name="model">purchase.request.line</field>
         <field name="inherit_id" ref="purchase_request.purchase_request_line_tree"/>
         <field name="arch" type="xml">
+            <field name="analytic_tags" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
             <field name="request_id" position="before">
                 <field name="product_code" optional="show"/>
             </field>
