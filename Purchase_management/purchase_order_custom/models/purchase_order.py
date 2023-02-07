@@ -104,6 +104,17 @@ class PurchaseOrderLine(models.Model):
     )
     project_code = fields.Char(related="project.code", string="Projet", compute="_compute_specifications",store=True)
     sale_order = fields.Many2one('sale.order', string="Devis", compute="_compute_specifications", store=True)
+    purchase_lines = fields.Many2many('purchase.request', compute='_compute_purchase_line', store=True)
+    #purchase_request_lines = fields.Many2many('purchase.request.line', store=True)
+    
+    
+    @api.depends('purchase_request_lines')
+    def _compute_purchase_line(self):
+        for rec in self:
+            if rec.purchase_request_lines:
+                rec.purchase_lines = rec.purchase_request_lines[0].request_id
+                
+    
     
     @api.depends('purchase_request_lines')
     def _compute_specifications(self):
