@@ -7,7 +7,7 @@ class ProjectProject(models.Model):
     _inherit="project.project"
     
     sale_order_ids = fields.One2many("sale.order", inverse_name="project_id", string="Sale Orders", 
-                                     #compute="_compute_sale_order_ids", 
+                                     compute="_compute_sale_order_ids", 
                                      store=True
                                     )
     
