@@ -349,7 +349,7 @@ class PurchaseRequestLineMakePurchaseOrderItem(models.TransientModel):
     product_uom_id = fields.Many2one(
         comodel_name="uom.uom", string="UoM", required=True
     )
-    keep_description = fields.Boolean(
+    keep_description = fields.Boolean(default=True,
         string="Copy descriptions to new PO",
         help="Set true if you want to keep the "
         "descriptions provided in the "
